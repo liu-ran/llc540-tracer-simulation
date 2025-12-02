@@ -1,0 +1,109 @@
+# Diagnostic Package Choices
+#-----------------
+# for each output-stream:
+# filename(n) : prefix of the output file name (only 8.c long) for outp.stream n
+# frequency(n):< 0 : write snap-shot output every |frequency| seconds
+# > 0 : write time-average output every frequency seconds
+# timePhase(n) : write at time = timePhase + multiple of |frequency|
+# levels(:,n) : list of levels to write to file (Notes: declared as REAL)
+# when this entry is missing, select all common levels of this list
+# fields(:,n) : list of diagnostics fields (8.c) (see "available_diagnostics" file
+# for the list of all available diag. in this particular config)
+#-----------------
+ &diagnostics_list
+# write pkg diagnostics output to separate subdirectory
+ diagMdsDir = 'Diags'
+
+# U Momentum budget terms
+# fields(1:8,21) = 'Um_Cori ','Um_Advec','Um_Diss ',
+#                 'Um_Ext  ','Um_dPhiX','AB_gU   ',
+#                 'Um_ImplD','TOTUTEND',
+# frequency(21) = 315360000.,
+# filename(21) = 'U_MOM',
+
+# V Momentum budget terms
+# fields(1:8,22) = 'Vm_Cori ','Vm_Advec','Vm_Diss ',
+#                 'Vm_Ext  ','Vm_dPhiY','AB_gV   ',
+#                 'Vm_ImplD','TOTVTEND',
+# frequency(22) = 315360000.,
+# filename(22) = 'V_MOM',
+
+# uv c
+# fields(1:6,23) ='UV_VEL_C','WU_VEL  ','WV_VEL  ',
+#                 'UE_VEL_C','VN_VEL_C','PsiVEL  ',
+# frequency(23) = 315360000.,
+# filename(23) = 'crossterm',
+
+# Salt budget
+#fields(1:7,24) = 'ADVx_SLT', 'ADVy_SLT', 'ADVr_SLT',
+#                'DFxE_SLT', 'DFyE_SLT', 'DFrI_SLT',
+#                'DFrE_SLT',
+#frequency(24) = 315360000.,
+#filename(24) = 'salt_state',
+
+# ETAN
+# fields(1,4) = 'ETAN',
+# frequency(4) = -31536000.,
+# filename(4) = 'ETAN',
+ 
+# 3D state variables
+ fields(1:3,3) = 'UVEL ', 'VVEL ', 'WVEL ',
+ frequency(3) = 31536000.,
+ filename(3) = 'state_3d1',
+ 
+ fields(1:4,2) = 'RHOAnoma ','SALT','THETA','DRHODR',
+ frequency(2) = 31536000.,
+ filename(2) = 'state_3d2',
+ 
+#fields(1:5,31) = 'oceTAUX','oceTAUY','oceFWflx','oceQnet',
+#'ETAN',
+#frequency(31) = 315360000.,
+#filename(31) = 'state_2d',
+ 
+ fields(1:2,1) = 'momKE   ','momVort3',
+ frequency(1) = 31536000.,
+ filename(1) = 'spinup',
+ 
+# Heat budget terms
+# fields(1:8,2) = 'ADVx_TH ', 'ADVy_TH ', 'ADVr_TH ',
+# 'DFxE_TH ', 'DFyE_TH ', 'DFrI_TH ',
+# 'DFrE_TH ', 'THETA',
+# frequency(2) = 315360000.,
+# filename(2) = 'heat_state',
+# Tracer 1 budget terms
+ fields(1:4,5) = 'TRAC01 ', 'UTRAC01','VTRAC01', 'WTRAC01',
+#                 'DFxETr01 ','DFyETr01 ', 'DFrITr01 ',
+ frequency(5) = 2592000.,
+ filename(5) = 'tracer',
+
+ fields(1:3,6) = 'UVEL ', 'VVEL ', 'WVEL ',
+ frequency(6) = 2592000.,
+ filename(6) = 'velmonthly',
+
+
+# Tracer snapshot
+# fields(1:10,12) = 'THETA ', 'TRAC01 ', 'TRAC02 ', 'TRAC03 ', 'TRAC04 ',
+# 'TRAC05 ', 'TRAC06 ', 'TRAC07 ', 'TRAC08 ', 'TRAC09 ',
+# frequency(12) = -259200.,
+# filename(12) = 'snap_tracer',
+ &
+
+# Parameter for Diagnostics of per level statistics:
+#-----------------
+# for each output-stream:
+# stat_fname(n) : prefix of the output file name (only 8.c long) for outp.stream n
+# stat_freq(n):< 0 : write snap-shot output every |stat_freq| seconds
+# > 0 : write time-average output every stat_freq seconds
+# stat_phase(n) : write at time = stat_phase + multiple of |stat_freq|
+# stat_region(:,n) : list of "regions" (default: 1 region only=global)
+# stat_fields(:,n) : list of diagnostics fields (8.c) (see "available_diagnostics.log"
+# file for the list of all available diag. in this particular config)
+#-----------------
+ &DIAG_STATIS_PARMS
+# an example just to check the agreement with MONITOR output:
+# stat_fields(1,1)= 'ETAN',
+# stat_fname(1)= 'dynStDiag',
+# stat_freq(1)= -864000.,
+# stat_freq(1)= 10000.,
+# stat_phase(1)= 10000.,
+ &

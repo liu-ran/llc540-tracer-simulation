@@ -1,0 +1,13 @@
+# *********************
+# Float Namelist
+# *********************
+ &FLT_NML
+ flt_int_traj =  2592000.,
+ flt_int_prof =  2592000.,
+ flt_noise    = 0.0,
+ flt_file     = 'float_input',
+ flt_selectTrajOutp=2,
+ FLT_Iter0    =2628000, 
+
+ 
+ &
